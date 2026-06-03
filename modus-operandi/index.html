@@ -90,11 +90,54 @@
     text-align:center; color:var(--muted); padding:3rem 1rem;
     font-family:'Helvetica Neue',Arial,sans-serif; font-size:.9rem;
   }
+
+  /* ── Table of contents drawer ────────────── */
+  .bar .toc-toggle{
+    width:auto; padding:0 .55rem; gap:.35rem; font-size:.82rem;
+  }
+  .bar .toc-toggle .lbl{ font-size:.8rem; }
+  @media (max-width:560px){ .bar .toc-toggle .lbl{ display:none; } }
+  #tocBack{
+    position:fixed; inset:0; background:rgba(20,15,18,.4); z-index:30;
+    opacity:0; pointer-events:none; transition:opacity .2s;
+  }
+  #tocBack.open{opacity:1; pointer-events:auto;}
+  #toc{
+    position:fixed; top:0; left:0; height:100%; width:min(400px,86vw);
+    background:var(--bar); z-index:31; transform:translateX(-100%);
+    transition:transform .22s ease; overflow-y:auto;
+    box-shadow:2px 0 18px rgba(0,0,0,.22);
+    font-family:'Helvetica Neue',Arial,sans-serif;
+  }
+  #toc.open{transform:none;}
+  #toc .tochead{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:.85rem 1rem; border-bottom:1px solid var(--border);
+    position:sticky; top:0; background:var(--bar);
+  }
+  #toc .tochead span{ font-family:Georgia,serif; color:var(--accent); font-size:1rem; }
+  #toc .tochead button{
+    font:inherit; font-size:1.3rem; line-height:1; cursor:pointer;
+    background:none; border:none; color:var(--muted); padding:.1rem .3rem;
+  }
+  #toc ul{list-style:none; margin:0; padding:.4rem 0 2rem;}
+  #toc a{
+    display:flex; gap:.5rem; align-items:baseline; justify-content:space-between;
+    padding:.4rem 1rem; color:var(--fg); text-decoration:none;
+    font-size:.92rem; line-height:1.3; border-left:3px solid transparent;
+  }
+  #toc a:hover{background:rgba(107,45,92,.08); color:var(--accent); border-left-color:var(--accent-soft);}
+  #toc a .t{min-width:0;}
+  #toc a .pg{color:var(--accent-soft); font-size:.74rem; white-space:nowrap; flex:none;}
+  #toc .lvl1 a{padding-left:2rem; font-size:.86rem; color:var(--muted);}
+  #toc .lvl2 a{padding-left:3rem; font-size:.83rem; color:var(--muted);}
+  #toc .lvl1 a:hover, #toc .lvl2 a:hover{color:var(--accent);}
 </style>
 </head>
 <body>
   <div class="bar">
     <a class="home" href="/" title="На главную">←</a>
+    <button class="toc-toggle" id="tocToggle" title="Оглавление"><span>☰</span><span class="lbl">Оглавление</span></button>
     <span class="title">Я, Творец, Свят Благословен Он</span>
     <span class="pageind">
       <input id="pageInput" type="text" inputmode="numeric" value="1" aria-label="Номер страницы">
@@ -106,6 +149,12 @@
     </span>
     <a class="dl" href="book.pdf" download title="Скачать PDF">PDF ↓</a>
   </div>
+
+  <div id="tocBack"></div>
+  <nav id="toc" aria-label="Оглавление">
+    <div class="tochead"><span>Оглавление</span><button id="tocClose" title="Закрыть">×</button></div>
+    <ul id="tocList"></ul>
+  </nav>
 
   <div id="viewer"><div class="loading">Загрузка книги…</div></div>
 
@@ -120,6 +169,11 @@
     const pageTotal= document.getElementById('pageTotal');
     const zoomIn   = document.getElementById('zoomIn');
     const zoomOut  = document.getElementById('zoomOut');
+    const tocToggle= document.getElementById('tocToggle');
+    const tocClose = document.getElementById('tocClose');
+    const tocBack  = document.getElementById('tocBack');
+    const tocPanel = document.getElementById('toc');
+    const tocList  = document.getElementById('tocList');
 
     let pdf = null;
     let numPages = 0;
@@ -266,7 +320,61 @@
 
     function goToPage(n){
       n = Math.max(1, Math.min(numPages, n|0));
-      pageDivs[n-1].scrollIntoView({behavior:'smooth', block:'start'});
+      // smooth only for short hops; instant for long jumps (browsers bail on huge smooth scrolls)
+      const behavior = Math.abs(n - currentPage) <= 4 ? 'smooth' : 'auto';
+      pageDivs[n-1].scrollIntoView({behavior, block:'start'});
+    }
+
+    // ── Table of contents ──────────────────────
+    function openToc(){ tocPanel.classList.add('open'); tocBack.classList.add('open'); }
+    function closeToc(){ tocPanel.classList.remove('open'); tocBack.classList.remove('open'); }
+    tocToggle.onclick = ()=> tocPanel.classList.contains('open') ? closeToc() : openToc();
+    tocClose.onclick  = closeToc;
+    tocBack.onclick   = closeToc;
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeToc(); });
+
+    async function destPageNum(dest){
+      try{
+        const explicit = typeof dest === 'string' ? await pdf.getDestination(dest) : dest;
+        if(!explicit || !explicit[0]) return null;
+        const idx = await pdf.getPageIndex(explicit[0]);
+        return idx + 1;
+      }catch(e){ return null; }
+    }
+
+    async function buildToc(){
+      let outline = null;
+      try{ outline = await pdf.getOutline(); }catch(e){}
+      if(!outline || !outline.length){
+        // no embedded outline → hide the control
+        tocToggle.style.display = 'none';
+        return;
+      }
+      const frag = document.createDocumentFragment();
+      async function emit(items, lvl){
+        for(const it of items){
+          const li = document.createElement('li');
+          if(lvl) li.className = 'lvl'+lvl;
+          const a = document.createElement('a');
+          a.href = '#';
+          const title = (it.title || '').trim() || '—';
+          const pn = await destPageNum(it.dest);
+          const t = document.createElement('span'); t.className='t'; t.textContent = title;
+          a.appendChild(t);
+          if(pn){
+            const pg = document.createElement('span'); pg.className='pg'; pg.textContent = pn;
+            a.appendChild(pg);
+            a.addEventListener('click', ev=>{ ev.preventDefault(); closeToc(); goToPage(pn); });
+          }else{
+            a.addEventListener('click', ev=>ev.preventDefault());
+          }
+          li.appendChild(a);
+          frag.appendChild(li);
+          if(it.items && it.items.length) await emit(it.items, Math.min((lvl||0)+1, 2));
+        }
+      }
+      await emit(outline, 0);
+      tocList.appendChild(frag);
     }
 
     // Zoom: re-size placeholders, drop renders, re-render visible
@@ -306,6 +414,7 @@
         buildPlaceholders();
         observeAll();
         observeCurrent();
+        buildToc();
       }catch(err){
         viewer.innerHTML = '<div class="loading">Не удалось загрузить книгу.<br>'+
           '<a href="book.pdf" style="color:var(--accent)">Открыть PDF напрямую</a></div>';
