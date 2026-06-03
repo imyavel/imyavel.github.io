@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Я, Творец, Свят Благословен Он — Зеир Арихович Анпин</title>
+<meta name="description" content="Я, Творец, Свят Благословен Он — Зеир Арихович Анпин. Книга Элиягу Бар Малей, постраничный просмотр.">
+<style>
+  :root{
+    --fg:#1a1a1a; --muted:#6b6258; --accent:#6b2d5c; --accent-soft:#8a4575;
+    --bg:#f0ece2; --card:#fff; --border:#e0dbce; --bar:#fdfcf7;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;}
+  body{
+    background:var(--bg); color:var(--fg);
+    font-family:Georgia,'Times New Roman',Times,serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ── Top bar ─────────────────────────────── */
+  .bar{
+    position:sticky; top:0; z-index:20;
+    display:flex; align-items:center; gap:.6rem;
+    padding:.55rem .9rem; background:var(--bar);
+    border-bottom:1px solid var(--border);
+    box-shadow:0 1px 6px rgba(0,0,0,.05);
+    font-family:'Helvetica Neue',Arial,sans-serif;
+  }
+  .bar .home{
+    color:var(--accent); text-decoration:none; font-size:1.1rem;
+    line-height:1; padding:.2rem .35rem; border-radius:5px;
+  }
+  .bar .home:hover{background:rgba(107,45,92,.08);}
+  .bar .title{
+    flex:1; min-width:0; font-family:Georgia,serif; color:var(--accent);
+    font-size:.98rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .bar .ctrl{display:flex; align-items:center; gap:.25rem;}
+  .bar button{
+    font:inherit; font-size:.9rem; cursor:pointer; color:var(--accent);
+    background:var(--card); border:1px solid var(--border); border-radius:6px;
+    width:1.9rem; height:1.9rem; line-height:1; padding:0;
+    display:inline-flex; align-items:center; justify-content:center;
+  }
+  .bar button:hover{border-color:var(--accent);}
+  .pageind{
+    font-size:.82rem; color:var(--muted); white-space:nowrap;
+    display:flex; align-items:center; gap:.2rem;
+  }
+  .pageind input{
+    width:2.6rem; text-align:center; font:inherit; font-size:.82rem;
+    border:1px solid var(--border); border-radius:5px; padding:.15rem .2rem;
+    color:var(--fg); background:var(--card);
+  }
+  .bar .dl{
+    color:var(--accent-soft); text-decoration:none; font-size:.8rem;
+    letter-spacing:.03em; white-space:nowrap;
+  }
+  .bar .dl:hover{text-decoration:underline;}
+
+  /* ── Pages ───────────────────────────────── */
+  #viewer{
+    padding:1.4rem .5rem 3rem; display:flex; flex-direction:column;
+    align-items:center; gap:1.1rem;
+  }
+  .page{
+    position:relative; background:var(--card); width:100%;
+    box-shadow:0 2px 12px rgba(0,0,0,.12); overflow:hidden;
+  }
+  .page canvas{display:block; width:100%; height:100%;}
+  .page .ph{
+    position:absolute; inset:0; display:flex; align-items:center;
+    justify-content:center; color:var(--muted); font-size:.85rem;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+  }
+
+  /* pdf.js text layer (selection) */
+  .textLayer{
+    position:absolute; inset:0; overflow:hidden; line-height:1;
+    opacity:.25; mix-blend-mode:multiply;
+  }
+  .textLayer span, .textLayer br{
+    color:transparent; position:absolute; white-space:pre;
+    cursor:text; transform-origin:0 0;
+  }
+  .textLayer ::selection{background:rgba(107,45,92,.35);}
+
+  .loading{
+    text-align:center; color:var(--muted); padding:3rem 1rem;
+    font-family:'Helvetica Neue',Arial,sans-serif; font-size:.9rem;
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <a class="home" href="/" title="На главную">←</a>
+    <span class="title">Я, Творец, Свят Благословен Он</span>
+    <span class="pageind">
+      <input id="pageInput" type="text" inputmode="numeric" value="1" aria-label="Номер страницы">
+      <span>/ <span id="pageTotal">…</span></span>
+    </span>
+    <span class="ctrl">
+      <button id="zoomOut" title="Уменьшить">−</button>
+      <button id="zoomIn" title="Увеличить">+</button>
+    </span>
+    <a class="dl" href="book.pdf" download title="Скачать PDF">PDF ↓</a>
+  </div>
+
+  <div id="viewer"><div class="loading">Загрузка книги…</div></div>
+
+  <script src="lib/pdf.min.js"></script>
+  <script>
+  (function(){
+    const pdfjsLib = window['pdfjsLib'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'lib/pdf.worker.min.js';
+
+    const viewer   = document.getElementById('viewer');
+    const pageInput= document.getElementById('pageInput');
+    const pageTotal= document.getElementById('pageTotal');
+    const zoomIn   = document.getElementById('zoomIn');
+    const zoomOut  = document.getElementById('zoomOut');
+
+    let pdf = null;
+    let numPages = 0;
+    let pageDivs = [];          // .page wrappers
+    let rendered = new Map();   // pageNum -> {task, rendering}
+    let zoom = 1;               // user zoom multiplier on top of fit-width
+    let baseViewport = null;    // page 1 viewport at scale 1 (pt)
+    let renderToken = 0;        // invalidates in-flight renders on zoom
+
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    const RENDER_MARGIN = '800px 0px'; // render a bit before entering view
+
+    function fitScale(){
+      // viewer content width minus padding
+      const avail = viewer.clientWidth - 16; // ~0.5rem*2 padding
+      const w = Math.min(avail, 900);        // cap width on big screens
+      return (w / baseViewport.width) * zoom;
+    }
+
+    function sizePlaceholder(div, scale){
+      div.style.width  = (baseViewport.width  * scale) + 'px';
+      div.style.height = (baseViewport.height * scale) + 'px';
+    }
+
+    function buildPlaceholders(){
+      viewer.innerHTML = '';
+      pageDivs = [];
+      const scale = fitScale();
+      for(let i=1;i<=numPages;i++){
+        const div = document.createElement('div');
+        div.className = 'page';
+        div.dataset.page = i;
+        sizePlaceholder(div, scale);
+        const ph = document.createElement('div');
+        ph.className = 'ph';
+        ph.textContent = i;
+        div.appendChild(ph);
+        viewer.appendChild(div);
+        pageDivs.push(div);
+      }
+    }
+
+    async function renderPage(num){
+      if(rendered.has(num)) return;
+      const div = pageDivs[num-1];
+      rendered.set(num, {});
+      const myToken = renderToken;
+      try{
+        const page = await pdf.getPage(num);
+        if(myToken !== renderToken){ rendered.delete(num); return; }
+        const scale = fitScale();
+        const viewport = page.getViewport({scale});
+        div.style.setProperty('--scale-factor', scale);
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d', {alpha:false});
+        canvas.width  = Math.floor(viewport.width  * DPR);
+        canvas.height = Math.floor(viewport.height * DPR);
+        canvas.style.width  = '100%';
+        canvas.style.height = '100%';
+
+        const task = page.render({
+          canvasContext: ctx,
+          viewport,
+          transform: DPR !== 1 ? [DPR,0,0,DPR,0,0] : null
+        });
+        rendered.set(num, {task});
+        await task.promise;
+        if(myToken !== renderToken){ rendered.delete(num); return; }
+
+        // swap placeholder -> canvas (+ text layer)
+        const ph = div.querySelector('.ph'); if(ph) ph.remove();
+        div.appendChild(canvas);
+
+        try{
+          const textContent = await page.getTextContent();
+          if(myToken !== renderToken) return;
+          const tl = document.createElement('div');
+          tl.className = 'textLayer';
+          div.appendChild(tl);
+          pdfjsLib.renderTextLayer({
+            textContentSource: textContent,
+            container: tl,
+            viewport: viewport,
+            textDivs: []
+          });
+        }catch(e){/* text layer optional */}
+      }catch(err){
+        rendered.delete(num);
+        if(myToken === renderToken) console.warn('page '+num+' render failed', err);
+      }
+    }
+
+    function freePage(num){
+      const rec = rendered.get(num);
+      if(!rec) return;
+      if(rec.task && rec.task.cancel) try{ rec.task.cancel(); }catch(e){}
+      const div = pageDivs[num-1];
+      div.querySelectorAll('canvas, .textLayer').forEach(n=>n.remove());
+      if(!div.querySelector('.ph')){
+        const ph=document.createElement('div'); ph.className='ph'; ph.textContent=num;
+        div.appendChild(ph);
+      }
+      rendered.delete(num);
+    }
+
+    // Lazy render via IntersectionObserver
+    let io;
+    function observeAll(){
+      if(io) io.disconnect();
+      io = new IntersectionObserver((entries)=>{
+        for(const e of entries){
+          const num = +e.target.dataset.page;
+          if(e.isIntersecting) renderPage(num);
+          else freePageIfFar(num);
+        }
+      }, {root:null, rootMargin:RENDER_MARGIN, threshold:0});
+      pageDivs.forEach(d=>io.observe(d));
+    }
+
+    // current page tracking (most visible)
+    let currentPage = 1;
+    let curObs;
+    function observeCurrent(){
+      if(curObs) curObs.disconnect();
+      curObs = new IntersectionObserver((entries)=>{
+        let best=null, bestRatio=0;
+        for(const e of entries){
+          if(e.intersectionRatio>bestRatio){bestRatio=e.intersectionRatio; best=+e.target.dataset.page;}
+        }
+        if(best && best!==currentPage){
+          currentPage=best;
+          if(document.activeElement!==pageInput) pageInput.value=best;
+        }
+      }, {root:null, threshold:[.1,.3,.5,.7]});
+      pageDivs.forEach(d=>curObs.observe(d));
+    }
+
+    function freePageIfFar(num){
+      // keep a window of pages around current to avoid re-render thrash
+      if(Math.abs(num-currentPage) <= 3) return;
+      freePage(num);
+    }
+
+    function goToPage(n){
+      n = Math.max(1, Math.min(numPages, n|0));
+      pageDivs[n-1].scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Zoom: re-size placeholders, drop renders, re-render visible
+    let zoomTimer;
+    function applyZoom(){
+      renderToken++;                       // invalidate in-flight
+      const scale = fitScale();
+      pageDivs.forEach(d=>sizePlaceholder(d, scale));
+      // clear all current renders; observers will re-fire for visible
+      Array.from(rendered.keys()).forEach(freePage);
+      clearTimeout(zoomTimer);
+      zoomTimer = setTimeout(()=>{ observeAll(); }, 60);
+    }
+    zoomIn.onclick  = ()=>{ zoom=Math.min(zoom*1.25, 4); applyZoom(); };
+    zoomOut.onclick = ()=>{ zoom=Math.max(zoom/1.25, .5); applyZoom(); };
+
+    pageInput.addEventListener('keydown', e=>{
+      if(e.key==='Enter'){ goToPage(+pageInput.value); pageInput.blur(); }
+    });
+    pageInput.addEventListener('blur', ()=>{ pageInput.value=currentPage; });
+
+    // re-fit on resize (debounced)
+    let rzTimer;
+    window.addEventListener('resize', ()=>{
+      clearTimeout(rzTimer);
+      rzTimer=setTimeout(applyZoom, 150);
+    });
+
+    (async function init(){
+      try{
+        const task = pdfjsLib.getDocument({url:'book.pdf'});
+        pdf = await task.promise;
+        numPages = pdf.numPages;
+        pageTotal.textContent = numPages;
+        const p1 = await pdf.getPage(1);
+        baseViewport = p1.getViewport({scale:1});
+        buildPlaceholders();
+        observeAll();
+        observeCurrent();
+      }catch(err){
+        viewer.innerHTML = '<div class="loading">Не удалось загрузить книгу.<br>'+
+          '<a href="book.pdf" style="color:var(--accent)">Открыть PDF напрямую</a></div>';
+        console.error(err);
+      }
+    })();
+  })();
+  </script>
+</body>
+</html>
