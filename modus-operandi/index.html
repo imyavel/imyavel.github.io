@@ -490,11 +490,16 @@
     });
 
     // ── Full-text search (custom, bound to Ctrl+F) ──
-    let pageText = null;        // 1..N lowercased page text
+    let pageText = null;        // 1..N whitespace-stripped lowercased page text
     let indexBuilding = null;
     let findMatches = [];       // [{page, count}]
     let findIdx = -1;
     let findQuery = '';
+
+    // Whitespace-insensitive normalize: the PDF often splits a word into
+    // several text items (e.g. B|NEI|A|DAM.COM), so stripping all whitespace
+    // lets a query match across those fragments.
+    function norm(s){ return (s||'').toLowerCase().replace(/\s+/g,''); }
 
     async function buildIndex(){
       if(pageText) return pageText;
@@ -505,7 +510,7 @@
           try{
             const pg = await pdf.getPage(i);
             const tc = await pg.getTextContent();
-            arr[i] = tc.items.map(it=>it.str).join(' ').toLowerCase();
+            arr[i] = norm(tc.items.map(it=>it.str).join(''));
           }catch(e){ arr[i]=''; }
         }
         pageText = arr; return arr;
@@ -525,7 +530,7 @@
     function setFindStatus(txt){ findStatus.textContent = txt; }
 
     async function runSearch(q){
-      q = (q||'').trim().toLowerCase();
+      q = norm(q);
       findQuery = q;
       clearFindHighlights();
       if(!q){ findMatches=[]; findIdx=-1; setFindStatus(''); return; }
@@ -567,18 +572,29 @@
         if(tl && tl.querySelector('span')) break;
         await new Promise(r=>setTimeout(r,80));
       }
-      if(!tl || q!==findQuery) return;
+      if(!tl || q!==findQuery || !q) return;
+      const spans = [...tl.querySelectorAll('span')];
+      // normalized concat of span texts + per-char map back to span index
+      let concat = ''; const map = [];
+      for(let j=0;j<spans.length;j++){
+        const t = norm(spans[j].textContent);
+        for(let k=0;k<t.length;k++) map.push(j);
+        concat += t;
+      }
       const fl = document.createElement('div'); fl.className='findLayer';
-      let first=null;
-      tl.querySelectorAll('span').forEach(sp=>{
-        const txt=(sp.textContent||'').toLowerCase();
-        if(q && txt.includes(q)){
-          const b=document.createElement('div'); b.className='fb';
+      let first=null, idx=0, marked=new Set();
+      while((idx = concat.indexOf(q, idx)) !== -1){
+        const sStart = map[idx], sEnd = map[idx + q.length - 1];
+        for(let s=sStart; s<=sEnd; s++){
+          const sp = spans[s];
+          const b = document.createElement('div'); b.className='fb';
           b.style.left=sp.offsetLeft+'px'; b.style.top=sp.offsetTop+'px';
           b.style.width=sp.offsetWidth+'px'; b.style.height=sp.offsetHeight+'px';
-          fl.appendChild(b); if(!first) first=b;
+          fl.appendChild(b);
+          if(!first){ first=b; }
         }
-      });
+        idx += q.length;
+      }
       div.appendChild(fl);
       if(first){ first.classList.add('cur'); first.scrollIntoView({block:'center'}); }
     }
@@ -600,7 +616,7 @@
     findInput.addEventListener('keydown', e=>{
       if(e.key==='Enter'){
         e.preventDefault();
-        const v=findInput.value.trim().toLowerCase();
+        const v=norm(findInput.value);
         if(v && v===findQuery && findMatches.length){ gotoFindMatch(findIdx + (e.shiftKey?-1:1)); }
         else { runSearch(findInput.value); }
       }else if(e.key==='Escape'){ e.preventDefault(); closeFind(); }
