@@ -19,14 +19,39 @@
   }
 
   /* ── Top bar ─────────────────────────────── */
+  .topbar{position:sticky; top:0; z-index:20;}
   .bar{
-    position:sticky; top:0; z-index:20;
     display:flex; align-items:center; gap:.6rem;
     padding:.55rem .9rem; background:var(--bar);
     border-bottom:1px solid var(--border);
     box-shadow:0 1px 6px rgba(0,0,0,.05);
     font-family:'Helvetica Neue',Arial,sans-serif;
   }
+  /* ── Find bar ────────────────────────────── */
+  .findbar{
+    display:flex; align-items:center; gap:.4rem;
+    padding:.4rem .9rem; background:var(--bar);
+    border-bottom:1px solid var(--border);
+    box-shadow:0 1px 6px rgba(0,0,0,.05);
+    font-family:'Helvetica Neue',Arial,sans-serif;
+  }
+  .findbar[hidden]{display:none;}
+  .findbar input{
+    flex:1; min-width:0; font:inherit; font-size:.92rem;
+    border:1px solid var(--border); border-radius:6px; padding:.3rem .55rem;
+    color:var(--fg); background:var(--card);
+  }
+  .findbar input:focus{outline:none; border-color:var(--accent);}
+  .findbar .findstatus{
+    font-size:.8rem; color:var(--muted); white-space:nowrap; min-width:3.5rem; text-align:right;
+  }
+  .findbar button{
+    font:inherit; font-size:.9rem; cursor:pointer; color:var(--accent);
+    background:var(--card); border:1px solid var(--border); border-radius:6px;
+    width:1.9rem; height:1.9rem; line-height:1; padding:0;
+    display:inline-flex; align-items:center; justify-content:center; flex:none;
+  }
+  .findbar button:hover{border-color:var(--accent);}
   .bar .home{
     color:var(--accent); text-decoration:none; font-size:1.1rem;
     line-height:1; padding:.2rem .35rem; border-radius:5px;
@@ -91,6 +116,11 @@
   .linkLayer a{position:absolute; display:block; cursor:pointer; pointer-events:auto;}
   .linkLayer a:hover{background:rgba(107,45,92,.13); outline:1px solid rgba(107,45,92,.45);}
 
+  /* search highlights */
+  .findLayer{position:absolute; inset:0; pointer-events:none;}
+  .findLayer .fb{position:absolute; background:rgba(255,201,71,.5); mix-blend-mode:multiply; border-radius:2px;}
+  .findLayer .fb.cur{background:rgba(255,138,46,.6);}
+
   .loading{
     text-align:center; color:var(--muted); padding:3rem 1rem;
     font-family:'Helvetica Neue',Arial,sans-serif; font-size:.9rem;
@@ -140,6 +170,7 @@
 </style>
 </head>
 <body>
+  <header class="topbar">
   <div class="bar">
     <a class="home" href="/" title="На главную">←</a>
     <button class="toc-toggle" id="tocToggle" title="Оглавление"><span>☰</span><span class="lbl">Оглавление</span></button>
@@ -149,11 +180,20 @@
       <span>/ <span id="pageTotal">…</span></span>
     </span>
     <span class="ctrl">
+      <button id="findToggle" title="Поиск (Ctrl+F)">🔍</button>
       <button id="zoomOut" title="Уменьшить">−</button>
       <button id="zoomIn" title="Увеличить">+</button>
     </span>
     <a class="dl" href="book.pdf" download title="Скачать PDF">PDF ↓</a>
   </div>
+  <div class="findbar" id="findbar" hidden>
+    <input id="findInput" type="text" placeholder="Поиск по книге…" aria-label="Поиск по книге">
+    <span class="findstatus" id="findStatus"></span>
+    <button id="findPrev" title="Предыдущее (Shift+Enter)">↑</button>
+    <button id="findNext" title="Следующее (Enter)">↓</button>
+    <button id="findClose" title="Закрыть (Esc)">×</button>
+  </div>
+  </header>
 
   <div id="tocBack"></div>
   <nav id="toc" aria-label="Оглавление">
@@ -179,6 +219,13 @@
     const tocBack  = document.getElementById('tocBack');
     const tocPanel = document.getElementById('toc');
     const tocList  = document.getElementById('tocList');
+    const findToggle = document.getElementById('findToggle');
+    const findbar    = document.getElementById('findbar');
+    const findInput  = document.getElementById('findInput');
+    const findStatus = document.getElementById('findStatus');
+    const findPrev   = document.getElementById('findPrev');
+    const findNext   = document.getElementById('findNext');
+    const findClose  = document.getElementById('findClose');
 
     let pdf = null;
     let numPages = 0;
@@ -419,6 +466,7 @@
     let zoomTimer;
     function applyZoom(){
       renderToken++;                       // invalidate in-flight
+      clearFindHighlights();
       const scale = fitScale();
       pageDivs.forEach(d=>sizePlaceholder(d, scale));
       // clear all current renders; observers will re-fire for visible
@@ -439,6 +487,129 @@
     window.addEventListener('resize', ()=>{
       clearTimeout(rzTimer);
       rzTimer=setTimeout(applyZoom, 150);
+    });
+
+    // ── Full-text search (custom, bound to Ctrl+F) ──
+    let pageText = null;        // 1..N lowercased page text
+    let indexBuilding = null;
+    let findMatches = [];       // [{page, count}]
+    let findIdx = -1;
+    let findQuery = '';
+
+    async function buildIndex(){
+      if(pageText) return pageText;
+      if(indexBuilding) return indexBuilding;
+      indexBuilding = (async()=>{
+        const arr = new Array(numPages+1).fill('');
+        for(let i=1;i<=numPages;i++){
+          try{
+            const pg = await pdf.getPage(i);
+            const tc = await pg.getTextContent();
+            arr[i] = tc.items.map(it=>it.str).join(' ').toLowerCase();
+          }catch(e){ arr[i]=''; }
+        }
+        pageText = arr; return arr;
+      })();
+      return indexBuilding;
+    }
+
+    function countOcc(hay, needle){
+      if(!needle) return 0;
+      let n=0, i=0;
+      while((i=hay.indexOf(needle,i))!==-1){ n++; i+=needle.length; }
+      return n;
+    }
+
+    function clearFindHighlights(){ document.querySelectorAll('.findLayer').forEach(n=>n.remove()); }
+
+    function setFindStatus(txt){ findStatus.textContent = txt; }
+
+    async function runSearch(q){
+      q = (q||'').trim().toLowerCase();
+      findQuery = q;
+      clearFindHighlights();
+      if(!q){ findMatches=[]; findIdx=-1; setFindStatus(''); return; }
+      setFindStatus('индексирую…');
+      await buildIndex();
+      if(q !== findQuery) return;           // superseded by newer query
+      findMatches = []; let total = 0;
+      for(let i=1;i<=numPages;i++){
+        const c = countOcc(pageText[i], q);
+        if(c>0){ findMatches.push({page:i,count:c}); total+=c; }
+      }
+      if(!findMatches.length){ findIdx=-1; setFindStatus('нет совпадений'); return; }
+      window.__findTotal = total;
+      gotoFindMatch(0);
+    }
+
+    function updateFindStatus(){
+      if(findIdx<0){ return; }
+      const p = findMatches[findIdx].page;
+      setFindStatus(`${findIdx+1}/${findMatches.length} стр · ${window.__findTotal||''}`);
+    }
+
+    function gotoFindMatch(k){
+      if(!findMatches.length) return;
+      findIdx = (k % findMatches.length + findMatches.length) % findMatches.length;
+      const page = findMatches[findIdx].page;
+      updateFindStatus();
+      goToPage(page);
+      highlightWhenReady(page, findQuery);
+    }
+
+    async function highlightWhenReady(page, q){
+      clearFindHighlights();
+      const div = pageDivs[page-1];
+      renderPage(page);                       // force render so text layer exists
+      let tl=null;
+      for(let t=0;t<80;t++){
+        tl = div.querySelector('.textLayer');
+        if(tl && tl.querySelector('span')) break;
+        await new Promise(r=>setTimeout(r,80));
+      }
+      if(!tl || q!==findQuery) return;
+      const fl = document.createElement('div'); fl.className='findLayer';
+      let first=null;
+      tl.querySelectorAll('span').forEach(sp=>{
+        const txt=(sp.textContent||'').toLowerCase();
+        if(q && txt.includes(q)){
+          const b=document.createElement('div'); b.className='fb';
+          b.style.left=sp.offsetLeft+'px'; b.style.top=sp.offsetTop+'px';
+          b.style.width=sp.offsetWidth+'px'; b.style.height=sp.offsetHeight+'px';
+          fl.appendChild(b); if(!first) first=b;
+        }
+      });
+      div.appendChild(fl);
+      if(first){ first.classList.add('cur'); first.scrollIntoView({block:'center'}); }
+    }
+
+    // find UI wiring
+    function openFind(){
+      findbar.hidden = false;
+      findInput.focus(); findInput.select();
+    }
+    function closeFind(){
+      findbar.hidden = true;
+      clearFindHighlights();
+      findQuery=''; findMatches=[]; findIdx=-1;
+    }
+    findToggle.onclick = ()=> findbar.hidden ? openFind() : closeFind();
+    findClose.onclick  = closeFind;
+    findNext.onclick   = ()=> gotoFindMatch(findIdx+1);
+    findPrev.onclick   = ()=> gotoFindMatch(findIdx-1);
+    findInput.addEventListener('keydown', e=>{
+      if(e.key==='Enter'){
+        e.preventDefault();
+        const v=findInput.value.trim().toLowerCase();
+        if(v && v===findQuery && findMatches.length){ gotoFindMatch(findIdx + (e.shiftKey?-1:1)); }
+        else { runSearch(findInput.value); }
+      }else if(e.key==='Escape'){ e.preventDefault(); closeFind(); }
+    });
+    // intercept the browser's Ctrl/Cmd+F
+    document.addEventListener('keydown', e=>{
+      if((e.ctrlKey||e.metaKey) && (e.key==='f'||e.key==='F' || e.key==='а'||e.key==='А')){
+        e.preventDefault(); openFind();
+      }
     });
 
     (async function init(){
