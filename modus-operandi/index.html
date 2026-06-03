@@ -87,8 +87,8 @@
   .textLayer ::selection{background:rgba(107,45,92,.35);}
 
   /* clickable link annotations from the PDF */
-  .linkLayer{position:absolute; inset:0;}
-  .linkLayer a{position:absolute; display:block; cursor:pointer;}
+  .linkLayer{position:absolute; inset:0; pointer-events:none;}
+  .linkLayer a{position:absolute; display:block; cursor:pointer; pointer-events:auto;}
   .linkLayer a:hover{background:rgba(107,45,92,.13); outline:1px solid rgba(107,45,92,.45);}
 
   .loading{
