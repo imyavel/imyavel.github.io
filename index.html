@@ -57,7 +57,7 @@
   <div class="cards">
     <a class="card" href="/yaniktoim/">
       <h2>Путь Восходящей Звезды</h2>
-      <p>Корпус авторских произведений — 352 статьи в 7 разделах: статьи, диалоги, стихи, песни.</p>
+      <p>Корпус авторских произведений — <span id="yan-stats">352 статьи в 7 разделах</span>: статьи, диалоги, стихи, песни.</p>
       <span class="go">Открыть →</span>
     </a>
     <a class="card" href="/zohar-sulam/">
@@ -71,6 +71,32 @@
       <span class="go">Открыть →</span>
     </a>
   </div>
+  <script>
+  /* Число «N статей в M разделах» для «Пути Восходящей Звезды» берём из ЖИВОГО
+     structure.json того сайта (тот же origin: /yaniktoim/config/structure.json) —
+     чтобы заглавная обновлялась автоматически при правках структуры, без ручной
+     правки этой страницы. Считаем не-archived статьи и не-archived разделы. */
+  (function () {
+    var el = document.getElementById("yan-stats");
+    if (!el) return;
+    function ruPlural(n, one, few, many) {
+      var a = n % 10, b = n % 100;
+      if (a === 1 && b !== 11) return one;
+      if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few;
+      return many;
+    }
+    fetch("/yaniktoim/config/structure.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (st) {
+        if (!st || !Array.isArray(st.articles)) return;
+        var arts = st.articles.filter(function (a) { return a.status !== "archived"; }).length;
+        var secs = (st.sections || []).filter(function (s) { return !s.archived; }).length;
+        el.textContent = arts + " " + ruPlural(arts, "статья", "статьи", "статей") +
+          " в " + secs + " " + (secs % 10 === 1 && secs % 100 !== 11 ? "разделе" : "разделах");
+      })
+      .catch(function () {});
+  })();
+  </script>
 
   <footer>
     <p><a href="https://proza.ru/avtor/agent017" rel="author">Элиягу Бар Малей</a> ·
