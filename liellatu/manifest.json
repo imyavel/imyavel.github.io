@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "book_id": "liellatu-pasauleziura",
+  "access": {
+    "key_id": "dab870863eaef2001fda1f1f6bd50f4f6a2bd1318c30bb1a92f83f5f6d0d8df8",
+    "kdf": {
+      "name": "PBKDF2",
+      "hash": "SHA-256",
+      "iterations": 600000,
+      "salt": "nnHnwnod2QwCx6dnqeEGYu2MwVc/N/XArVLYl9RXRWA="
+    },
+    "wrapped_key": {
+      "iv": "1bVFS3Zy3tmtJbVU",
+      "data": "wlMoadKFSnFfX383WR8Towd+zId9cRURa56hgbC79/EBhtNr3Nawg3bF3uRrZpeI"
+    }
+  },
+  "volumes": [
+    {
+      "volume": 1,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "html_sha256": "3b723a85281fa73b9da54430c94ca9f83b5e802c4d30214cfc5c3ba95c957bf7",
+      "bytes": 734891,
+      "file": "book-bc4e21f550d6f900c60a193a7e7c099c132c92979edc4cdffd442f956b653436.bin",
+      "iv": "/5Tzz7iCmAlDr7ZE",
+      "cipher_sha256": "bc4e21f550d6f900c60a193a7e7c099c132c92979edc4cdffd442f956b653436"
+    }
+  ],
+  "release_sha256": "72c9f6269a07dcc43fb9cf95e888258cb184788098207bb2aeff4968095894ff",
+  "updated_at": "2026-10-14T08:44:54+00:00"
+}
