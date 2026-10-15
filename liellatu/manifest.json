@@ -35,15 +35,16 @@
         15,
         16,
         17,
-        18
+        18,
+        19
       ],
-      "html_sha256": "7424913581a1942eab91f3ea7bab8372e3e379a19c5edde0bb84750b151041d9",
-      "bytes": 1459460,
-      "file": "book-064980a1f1ceb8cd2660d475e91ed457b2e471292fbab794a4c762d93310b7f4.bin",
-      "iv": "CFReeIb+ktjU1zy2",
-      "cipher_sha256": "064980a1f1ceb8cd2660d475e91ed457b2e471292fbab794a4c762d93310b7f4"
+      "html_sha256": "246246ffbe3a4c8203e54b99f29053ba17e65adcfb226d8774cf3ed2c1dcfb23",
+      "bytes": 1498320,
+      "file": "book-39cecaca5b851cd3bd26f321ceaaa5fabd03191fcae0979cc9379c433e16e334.bin",
+      "iv": "yoyl2H692eJxKYYY",
+      "cipher_sha256": "39cecaca5b851cd3bd26f321ceaaa5fabd03191fcae0979cc9379c433e16e334"
     }
   ],
-  "release_sha256": "6306f2f906044f070cdcf9e30685f5505ca369cc3488438387c02e2530829e8b",
-  "updated_at": "2026-10-15T12:33:21+00:00"
+  "release_sha256": "5999a49aa0430c4dc69520d6930cfcf05f3eadad3d85a80ca4fabc90327368b8",
+  "updated_at": "2026-10-15T13:22:20+00:00"
 }
