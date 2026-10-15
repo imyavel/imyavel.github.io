@@ -34,15 +34,16 @@
         14,
         15,
         16,
-        17
+        17,
+        18
       ],
-      "html_sha256": "e779fc9776f62514674a961797ef07523c29ac157f8b6d1f37484ba3d067c090",
-      "bytes": 1398618,
-      "file": "book-e37b5f33d07825946ad8b17a256a5a6cb45afc9d4a757d0e98539850484a1b45.bin",
-      "iv": "gGMeAI2xcVHNnZ6w",
-      "cipher_sha256": "e37b5f33d07825946ad8b17a256a5a6cb45afc9d4a757d0e98539850484a1b45"
+      "html_sha256": "7424913581a1942eab91f3ea7bab8372e3e379a19c5edde0bb84750b151041d9",
+      "bytes": 1459460,
+      "file": "book-064980a1f1ceb8cd2660d475e91ed457b2e471292fbab794a4c762d93310b7f4.bin",
+      "iv": "CFReeIb+ktjU1zy2",
+      "cipher_sha256": "064980a1f1ceb8cd2660d475e91ed457b2e471292fbab794a4c762d93310b7f4"
     }
   ],
-  "release_sha256": "4b68277e5fef2a8d3b2097064aea68a2b5eaa076b96a02978a07b49a9608a7a0",
-  "updated_at": "2026-10-15T11:34:16+00:00"
+  "release_sha256": "6306f2f906044f070cdcf9e30685f5505ca369cc3488438387c02e2530829e8b",
+  "updated_at": "2026-10-15T12:33:21+00:00"
 }
