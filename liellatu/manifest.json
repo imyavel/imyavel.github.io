@@ -32,15 +32,16 @@
         12,
         13,
         14,
-        15
+        15,
+        16
       ],
-      "html_sha256": "762bbee1ed200eb98ae07bb668bcf619f4feb08d96fff63ad56ec565a7611e59",
-      "bytes": 2612900,
-      "file": "book-b05451ddad772e69c0d83cd11a8d46d9eac7424afd34c980f60c373df3af228c.bin",
-      "iv": "RGafnnJou0Npo33C",
-      "cipher_sha256": "b05451ddad772e69c0d83cd11a8d46d9eac7424afd34c980f60c373df3af228c"
+      "html_sha256": "cfc87ed667d123ce4c4dbe80ff6b26f9a7685b3a3d46d6038a85637444fa6b31",
+      "bytes": 2787613,
+      "file": "book-bacecbbe69015db8c1afc606a8d6f83b94e86b5ee34231567ea36988922acb51.bin",
+      "iv": "vSYyKhe6RZYpKsHw",
+      "cipher_sha256": "bacecbbe69015db8c1afc606a8d6f83b94e86b5ee34231567ea36988922acb51"
     }
   ],
-  "release_sha256": "9ceb505a7d418119e71ca8100002598e77678967513db25ce8d1abde5d8e6c1c",
-  "updated_at": "2026-10-15T08:34:39+00:00"
+  "release_sha256": "0f01d1cba3b8d66089f5f34af1df42956e5512c0a48f55252bd982c912b80cae",
+  "updated_at": "2026-10-15T09:26:23+00:00"
 }
