@@ -29,15 +29,16 @@
         9,
         10,
         11,
-        12
+        12,
+        13
       ],
-      "html_sha256": "9983168c200d89d45b877ae33013656c0bb56f16ef00b2d2b0ba45f60943a2a4",
-      "bytes": 735632,
-      "file": "book-aee63217901b7d757ea92bd5493c756f8f8088905539902b860aa1bf14dd5e1b.bin",
-      "iv": "1KplNBdmedVRdbZa",
-      "cipher_sha256": "aee63217901b7d757ea92bd5493c756f8f8088905539902b860aa1bf14dd5e1b"
+      "html_sha256": "37765daa63a16f5ad76b93997339b507a7f176abe665161d678378b5f782f35e",
+      "bytes": 828216,
+      "file": "book-2ca23d9a9c5817d42ed3d77bba8dec42d99e575aa001f65f3a7adb05ac0350da.bin",
+      "iv": "fhPXOUnqVRAr8PAT",
+      "cipher_sha256": "2ca23d9a9c5817d42ed3d77bba8dec42d99e575aa001f65f3a7adb05ac0350da"
     }
   ],
-  "release_sha256": "8f903c2433a8362ba4a834b82e877e1b7fec56a61470d5eb3c4501bb597b5e5c",
-  "updated_at": "2026-10-15T06:54:11+00:00"
+  "release_sha256": "46342b4fcf47ba6a0232910f45e6fd7d5cef56abaf15ff470bf5eb6af0ed781a",
+  "updated_at": "2026-10-15T07:42:50+00:00"
 }
