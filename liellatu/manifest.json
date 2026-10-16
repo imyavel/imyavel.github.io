@@ -43,15 +43,16 @@
         23,
         24,
         25,
-        26
+        26,
+        27
       ],
-      "html_sha256": "372ffbf787e8a3a67314028430acd3d55a3eedd76cfba9cd695182e80af9b790",
-      "bytes": 3882882,
-      "file": "book-06253a3855b1f64b8344972db7ed4f49711c4fc9d09e98a45ba898eaef79922c.bin",
-      "iv": "jfBph692DsoQI/Fx",
-      "cipher_sha256": "06253a3855b1f64b8344972db7ed4f49711c4fc9d09e98a45ba898eaef79922c"
+      "html_sha256": "2b559a55257ed49dce7e517a4bf1287b3f9b3d43af2040eec07e5a3687e70e1a",
+      "bytes": 3930143,
+      "file": "book-2b167fe90435fb305bcd3cf95603f3e6a057f8fb542246207c4c15c33320d8ed.bin",
+      "iv": "gRvctrnZ4Zsj5b6k",
+      "cipher_sha256": "2b167fe90435fb305bcd3cf95603f3e6a057f8fb542246207c4c15c33320d8ed"
     }
   ],
-  "release_sha256": "ebb33408b83d38392f42094c52755cdfa6ef974a32ba8c1d774fcf814f74932f",
-  "updated_at": "2026-10-16T20:39:42+00:00"
+  "release_sha256": "a58408d6c47ffe68a28481146cb002fc42380cbc6b470d8829051930d893b177",
+  "updated_at": "2026-10-16T20:58:20+00:00"
 }
