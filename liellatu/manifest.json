@@ -1,22 +1,30 @@
 {
-  "format_version": 1,
-  "book_id": "liellatu-pasauleziura",
   "access": {
-    "key_id": "dab870863eaef2001fda1f1f6bd50f4f6a2bd1318c30bb1a92f83f5f6d0d8df8",
     "kdf": {
-      "name": "PBKDF2",
       "hash": "SHA-256",
       "iterations": 600000,
+      "name": "PBKDF2",
       "salt": "nnHnwnod2QwCx6dnqeEGYu2MwVc/N/XArVLYl9RXRWA="
     },
+    "key_id": "dab870863eaef2001fda1f1f6bd50f4f6a2bd1318c30bb1a92f83f5f6d0d8df8",
     "wrapped_key": {
-      "iv": "1bVFS3Zy3tmtJbVU",
-      "data": "wlMoadKFSnFfX383WR8Towd+zId9cRURa56hgbC79/EBhtNr3Nawg3bF3uRrZpeI"
+      "data": "wlMoadKFSnFfX383WR8Towd+zId9cRURa56hgbC79/EBhtNr3Nawg3bF3uRrZpeI",
+      "iv": "1bVFS3Zy3tmtJbVU"
     }
   },
+  "batch_release": "r20261016T201008-15955dda",
+  "book_id": "liellatu-pasauleziura",
+  "format_version": 1,
+  "release_sha256": "bae39f03644331bd1e86a36db23942c033bfc43d4c283cbc5bc195e575e25e71",
+  "source_commit": "39db3bd18cd1f669cc0b3907926f7b521ba569b4",
+  "updated_at": "2026-10-16T20:15:30.891+00:00",
   "volumes": [
     {
-      "volume": 1,
+      "bytes": 3598869,
+      "cipher_sha256": "338a317bbe4f5581929415fcdbb41b4b97d3ce6c363f8d01b0b397fabc10a759",
+      "file": "book-338a317bbe4f5581929415fcdbb41b4b97d3ce6c363f8d01b0b397fabc10a759.bin",
+      "html_sha256": "3a8c047cad6709d96c1c81c2495ed6507286f00742eb84316166df37c4136164",
+      "iv": "opEoT2TZal5p3mgf",
       "pages": [
         1,
         2,
@@ -39,15 +47,12 @@
         19,
         20,
         21,
-        22
+        22,
+        23,
+        24,
+        25
       ],
-      "html_sha256": "94e68abc982b0ecbabc391ab2b647123dfdfb8cf13fc65ea3858d2400932c5b5",
-      "bytes": 3364008,
-      "file": "book-e871d9a0639436da76aec147bbb49623de8cef9776bf5f4c5ee3ffe1c14112e0.bin",
-      "iv": "bjw8pQNW8RBRMsw9",
-      "cipher_sha256": "e871d9a0639436da76aec147bbb49623de8cef9776bf5f4c5ee3ffe1c14112e0"
+      "volume": 1
     }
-  ],
-  "release_sha256": "bda3fc959466bc49967970ef8b676b509b79575aa0a302064702b3ef6804f50d",
-  "updated_at": "2026-10-16T19:21:57+00:00"
+  ]
 }
