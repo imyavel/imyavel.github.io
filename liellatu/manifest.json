@@ -47,13 +47,13 @@
         27,
         28
       ],
-      "html_sha256": "53f0101190634f35663266a93664ba3b8132640c73310b83b65df40994de9e94",
-      "bytes": 3985054,
-      "file": "book-42a655171a3b1e738cc8a6f0b88eb1e9aaca8292271ddc2cc74fe18b05e0a091.bin",
-      "iv": "NfWGnef8SgGB5yYy",
-      "cipher_sha256": "42a655171a3b1e738cc8a6f0b88eb1e9aaca8292271ddc2cc74fe18b05e0a091"
+      "html_sha256": "c362ba53b6077b3e7efdf4b39ffba17019df992b95b5ffc0e55c697cfec9ad4e",
+      "bytes": 3985058,
+      "file": "book-caa73cf3662102567406d09064a15a1ed19b03e8353b59f81ca6b06fe1323889.bin",
+      "iv": "HM+3BRcANslyZRfa",
+      "cipher_sha256": "caa73cf3662102567406d09064a15a1ed19b03e8353b59f81ca6b06fe1323889"
     }
   ],
-  "release_sha256": "bbc1a1c5948add069eceac5603105ba74dcd0355949b4cc50f195276cea410ce",
-  "updated_at": "2026-10-17T18:08:01+00:00"
+  "release_sha256": "ac7e9dba44d93be02990a0651cf1c077a49abee1f4440c4e4b93b0b1091aa381",
+  "updated_at": "2026-10-17T18:10:49+00:00"
 }
