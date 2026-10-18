@@ -47,15 +47,16 @@
         27,
         28,
         29,
-        30
+        30,
+        31
       ],
-      "html_sha256": "af251bc5a02d0630ea81b91fa7dd8de8d1a8ed932a2cbb6701fbea2993ec81e2",
-      "bytes": 4348128,
-      "file": "book-713942223245b8d54370d028da75c488f5845d874ce0d5ebdc15eef4594c32e4.bin",
-      "iv": "QVI827JnC57aOQfA",
-      "cipher_sha256": "713942223245b8d54370d028da75c488f5845d874ce0d5ebdc15eef4594c32e4"
+      "html_sha256": "7865e0ec12e909a870fd89c87a1476425af78af831cee297756784259cda4614",
+      "bytes": 4663502,
+      "file": "book-9c59939cf378d273c5e156fd36c5a55fde1782f99335397af91093f7454cfbcd.bin",
+      "iv": "PU+rvNIdrzWKELmT",
+      "cipher_sha256": "9c59939cf378d273c5e156fd36c5a55fde1782f99335397af91093f7454cfbcd"
     }
   ],
-  "release_sha256": "ab33e940539ad319a3cd915577bf7c9f1805a9f0d6f252934c766cbc2d7acd1f",
-  "updated_at": "2026-10-18T07:48:36+00:00"
+  "release_sha256": "f59a59e2fcf8013f71a06b1451534844d444ff11d10cb22d294e5d8860235dd1",
+  "updated_at": "2026-10-18T08:12:01+00:00"
 }
