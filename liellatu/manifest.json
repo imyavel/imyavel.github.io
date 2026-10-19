@@ -12,19 +12,19 @@
       "iv": "1bVFS3Zy3tmtJbVU"
     }
   },
-  "batch_release": "r20261019T020314-79f2c715",
+  "batch_release": "r20261019T024348-47ce439a",
   "book_id": "liellatu-pasauleziura",
   "format_version": 1,
-  "release_sha256": "2c924065922f76442f8d3d5bb1f15705e5cc6a2e1f7216a57c3aaf7e7436af18",
-  "source_commit": "8df4b0817b870722bd7f657c314b73468f9fa5f6",
-  "updated_at": "2026-10-19T02:09:31.377+00:00",
+  "release_sha256": "d98dc906b634dc76f2c080ab716be4cc99ffdce6082eca6c45c126b2329e690f",
+  "source_commit": "03c67126f102de6d64c6da924eb81ee837e739f5",
+  "updated_at": "2026-10-19T02:47:53.448+00:00",
   "volumes": [
     {
-      "bytes": 5254130,
-      "cipher_sha256": "d4e748686df24d48a34cff41fb7f38f646e6649173b5c768697504b658921911",
-      "file": "book-d4e748686df24d48a34cff41fb7f38f646e6649173b5c768697504b658921911.bin",
-      "html_sha256": "63bc296bd230201c7a2c848613d19b004b8686a74b2b394bb2bc21d35b36dc7d",
-      "iv": "tRnIJKsZxsC0Md/9",
+      "bytes": 5279262,
+      "cipher_sha256": "325d83d09f8dc4d36a9ba69268b0682e3027f2bc6bd96da8714233897b4514d6",
+      "file": "book-325d83d09f8dc4d36a9ba69268b0682e3027f2bc6bd96da8714233897b4514d6.bin",
+      "html_sha256": "a5732a089211c96f8e6a67cf4e6f3a112941dd99db3179e6193fd344b648f47e",
+      "iv": "cziFqV5+A3+lLaew",
       "pages": [
         1,
         2,
@@ -62,11 +62,11 @@
       "volume": 1
     },
     {
-      "bytes": 3781689,
-      "cipher_sha256": "81e8dfd592dc87e96deca25c53b6bd307a0d010c0a461d032fdd909fcf692753",
-      "file": "book-81e8dfd592dc87e96deca25c53b6bd307a0d010c0a461d032fdd909fcf692753.bin",
-      "html_sha256": "24736a9144ebbf326948ea15586b0d69d57332b8ebfc67aaba7cd9f9e1f06938",
-      "iv": "M5i5UjUufqDJYPBR",
+      "bytes": 4375184,
+      "cipher_sha256": "0cdd7169c013c7deef54030c3e40df43da3e9f6e3ab75dedf4d78a9fcd245d55",
+      "file": "book-0cdd7169c013c7deef54030c3e40df43da3e9f6e3ab75dedf4d78a9fcd245d55.bin",
+      "html_sha256": "c650139448c865a873a4574fa9a52b798cc985e839275aefe09bb07ea77f05dd",
+      "iv": "3x4LnMSk26rtJC3A",
       "pages": [
         33,
         34,
@@ -84,7 +84,10 @@
         46,
         47,
         48,
-        49
+        49,
+        50,
+        51,
+        52
       ],
       "volume": 2
     }
