@@ -12,19 +12,19 @@
       "iv": "1bVFS3Zy3tmtJbVU"
     }
   },
-  "batch_release": "r20261019T102620-c2961094",
+  "batch_release": "ra852c4ea387e4dc9a3f2",
   "book_id": "liellatu-pasauleziura",
   "format_version": 1,
-  "release_sha256": "071eaacd70b6b9ff00751adc67558aa0f6967e8ec4bd27f8bbbf6e1d7bb64dc3",
-  "source_commit": "75ebe592dc158b5faeacdd3326a6f5b6e3473a98",
-  "updated_at": "2026-10-19T10:36:56.600+00:00",
+  "release_sha256": "a8fa0b182dd6d9b4cf9235895820386925f97ac028b31a16b60468a31e6fad41",
+  "source_commit": "4b1bb581bb8b01e80ba98ecedb94a59cbc1257b8",
+  "updated_at": "2026-10-19T19:30:40.120+00:00",
   "volumes": [
     {
-      "bytes": 5439181,
-      "cipher_sha256": "d76d1830d2e302a04bf62789315e78c1f0316f8cdd9411f3603d99075264720b",
-      "file": "book-d76d1830d2e302a04bf62789315e78c1f0316f8cdd9411f3603d99075264720b.bin",
-      "html_sha256": "6594b1f83ed802ab19bb77abcf4f3b6c6c47b102eae0f94d2c21b80cdd703f6c",
-      "iv": "tWjusNUU/fpiRYLY",
+      "bytes": 5252661,
+      "cipher_sha256": "4b57753e51b1bbcea2938cc524533043e14b094aea7faf3649b6a22572e54736",
+      "file": "book-4b57753e51b1bbcea2938cc524533043e14b094aea7faf3649b6a22572e54736.bin",
+      "html_sha256": "fa324b019f43d9e2d0b96548f3319fa4a09904f0a47835d9c79e7cab6e95c71d",
+      "iv": "9DMtDzICyk5dGFOZ",
       "pages": [
         1,
         2,
@@ -62,11 +62,11 @@
       "volume": 1
     },
     {
-      "bytes": 6234854,
-      "cipher_sha256": "4d3d6cf06060dbd6cded48ada813da999123fa05a2ca28eb133fb9d4444e0359",
-      "file": "book-4d3d6cf06060dbd6cded48ada813da999123fa05a2ca28eb133fb9d4444e0359.bin",
-      "html_sha256": "473ba0e31f0237d8b399f72c81ee0f09438e3ba33b3129990c77c4b43a3eeba9",
-      "iv": "NSKWf8trQ+gTWUMy",
+      "bytes": 6046248,
+      "cipher_sha256": "e271f339bb15685a3b952851bab89f0e8e64666af5548a34cae216ec0e97e670",
+      "file": "book-e271f339bb15685a3b952851bab89f0e8e64666af5548a34cae216ec0e97e670.bin",
+      "html_sha256": "12ed1037cca1e857e10509f513581c45a2440849d60a40fe9a04a9eaabab4c46",
+      "iv": "/HKuIeq6vUaqTxga",
       "pages": [
         33,
         34,
