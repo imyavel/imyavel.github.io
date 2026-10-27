@@ -12,19 +12,19 @@
       "iv": "1bVFS3Zy3tmtJbVU"
     }
   },
-  "batch_release": "r20261027T030243-f254a299",
+  "batch_release": "r20261027T043304-8e55262e",
   "book_id": "liellatu-pasauleziura",
   "format_version": 1,
-  "release_sha256": "4acca4c0fbe7ba9f93ae0c057ec8e2dfef7eeec2f148c0e9531cc19cdeaed012",
-  "source_commit": "d47c4b84b2db56f010bb544a47894fb6798c0aa7",
-  "updated_at": "2026-10-27T03:08:12.981+00:00",
+  "release_sha256": "27cb3cadf87fcf6176d83aea6685bed0174a069511b269655f0c1dcd99cfecc8",
+  "source_commit": "3ef8ee8507e98e7b52b60cd3c3a668245704ba9f",
+  "updated_at": "2026-10-27T04:38:58.925+00:00",
   "volumes": [
     {
-      "bytes": 5446848,
-      "cipher_sha256": "5a65713009dd828f4817540e5f019d5338dc9cc14eac94bfd3687b0d48e6b93b",
-      "file": "book-5a65713009dd828f4817540e5f019d5338dc9cc14eac94bfd3687b0d48e6b93b.bin",
-      "html_sha256": "0e2e1c96860f95b4dbd0adaf2febe08085d3ee084bce67b4ec392ddbd7dac46e",
-      "iv": "OS5V/BJb7EUkrEvP",
+      "bytes": 5451568,
+      "cipher_sha256": "a5383287818fd8fc564b261f9fd80a00c19bccb39cddc2ac2aa88421ce9fc41d",
+      "file": "book-a5383287818fd8fc564b261f9fd80a00c19bccb39cddc2ac2aa88421ce9fc41d.bin",
+      "html_sha256": "84ab82fcf13d9bf94bfa85f049e22b793b8306108c233f44128b85af693b29ea",
+      "iv": "ZZ05+tBDqbMUyG9b",
       "pages": [
         1,
         2,
@@ -62,11 +62,11 @@
       "volume": 1
     },
     {
-      "bytes": 6671374,
-      "cipher_sha256": "d6b6ed79fc160895a1fcc30a62f3c27371340d3b8c3fd24e1619758102996acc",
-      "file": "book-d6b6ed79fc160895a1fcc30a62f3c27371340d3b8c3fd24e1619758102996acc.bin",
-      "html_sha256": "0f587d90bf618214ebf12283911a49a453145204394f9141837f5888119e5f4b",
-      "iv": "wDA8FOkknITB0J7Z",
+      "bytes": 6676094,
+      "cipher_sha256": "c5598a3ad7c6fda3ae714ba25c38b36ce098ec63261de47ed6be63b6abaee282",
+      "file": "book-c5598a3ad7c6fda3ae714ba25c38b36ce098ec63261de47ed6be63b6abaee282.bin",
+      "html_sha256": "37eb3465fb93273665849aca52ffc9fb446425ba422465cca42fb0abf4d31fb0",
+      "iv": "fChdqQ93A6X0oSKM",
       "pages": [
         33,
         34,
@@ -104,11 +104,11 @@
       "volume": 2
     },
     {
-      "bytes": 4965003,
-      "cipher_sha256": "c75387942c167eaa663c424f79059bc66179e5cb82d04bf77f89200aea5e879f",
-      "file": "book-c75387942c167eaa663c424f79059bc66179e5cb82d04bf77f89200aea5e879f.bin",
-      "html_sha256": "102a90b0f863246c6a59977c5fb03714216a54614f4f00a30e37725f47ecad5f",
-      "iv": "9mn6bD2mJryJQDaa",
+      "bytes": 4969723,
+      "cipher_sha256": "9eee85ad5b8187606af5ea1fe3216eadbab35b11e511092c0a0094174f1c9121",
+      "file": "book-9eee85ad5b8187606af5ea1fe3216eadbab35b11e511092c0a0094174f1c9121.bin",
+      "html_sha256": "803ee53475590c4304d288978a62640387e4ba54063d0627849439290db3ec71",
+      "iv": "Qp3xsoUDXmGGsCdW",
       "pages": [
         65,
         66,
@@ -146,11 +146,11 @@
       "volume": 3
     },
     {
-      "bytes": 20972742,
-      "cipher_sha256": "6c4cbd6c0709420116de7980ec2e35a11ba32c68b321386f8ce917f3fd36e133",
-      "file": "book-6c4cbd6c0709420116de7980ec2e35a11ba32c68b321386f8ce917f3fd36e133.bin",
-      "html_sha256": "a75d3a1d53e8ecfb0de73993f503ec18b94f1bfd8162d7d32a75ad4008ca2d5c",
-      "iv": "5axVjVpt/swBVWQC",
+      "bytes": 20977462,
+      "cipher_sha256": "3c891a4153dee11bd87ad0bcdf8fa8625b1ee1ed6a2259cd4a6139b8eeb748fd",
+      "file": "book-3c891a4153dee11bd87ad0bcdf8fa8625b1ee1ed6a2259cd4a6139b8eeb748fd.bin",
+      "html_sha256": "9ca84de8e045d400fde9970acdac8bac0f9377c3427569cd9ad7de7c5493e154",
+      "iv": "A0Qh8t1P2b5+iMsn",
       "pages": [
         97,
         98,
@@ -188,11 +188,11 @@
       "volume": 4
     },
     {
-      "bytes": 2954626,
-      "cipher_sha256": "e8a22486e77819713e38faa2ec60f3ee4f7867c869e099035c57156c02587ac5",
-      "file": "book-e8a22486e77819713e38faa2ec60f3ee4f7867c869e099035c57156c02587ac5.bin",
-      "html_sha256": "996b8207c96cbbdbdbc5a101a8b36febaccab53fb2a264389a28efe10e5cd020",
-      "iv": "e69fWocPVkapuv61",
+      "bytes": 2959346,
+      "cipher_sha256": "7548064fef9bd45f8f9645903fde022f1f9071dfbd33475711b45f59a8089516",
+      "file": "book-7548064fef9bd45f8f9645903fde022f1f9071dfbd33475711b45f59a8089516.bin",
+      "html_sha256": "668ef494f553911dbf8ac39d6b8f1f57e13e479d379fcbd5bd2aebd4d17644dd",
+      "iv": "dm3EEY7rnQLI8Xjd",
       "pages": [
         129,
         130,
@@ -230,11 +230,11 @@
       "volume": 5
     },
     {
-      "bytes": 3035441,
-      "cipher_sha256": "02affdb9ef2aa2102c1cb7fb19b56400dfc3f0faa33815e07a2d40a99d299bbf",
-      "file": "book-02affdb9ef2aa2102c1cb7fb19b56400dfc3f0faa33815e07a2d40a99d299bbf.bin",
-      "html_sha256": "4b72a3d11d097ff74c38c58d73e21d15d4a853dab461efa1cf2742568af7cba7",
-      "iv": "n1CHgKnoSqpFaIBK",
+      "bytes": 3135129,
+      "cipher_sha256": "a67a87613f35c83cdfacb9445cfad4767b1e3a4ce4783239ecdd82bf7bb93645",
+      "file": "book-a67a87613f35c83cdfacb9445cfad4767b1e3a4ce4783239ecdd82bf7bb93645.bin",
+      "html_sha256": "c92545b6e103724ca25a135e70e69643f214f2dc25b7ed801119ed9c07eb8b66",
+      "iv": "wxsD5Wh+8CLRIuDV",
       "pages": [
         161,
         162,
@@ -264,9 +264,23 @@
         186,
         187,
         188,
-        189
+        189,
+        190,
+        191,
+        192
       ],
       "volume": 6
+    },
+    {
+      "bytes": 982209,
+      "cipher_sha256": "232fda68bf632a53488bbeb29fd3c3d5d778af5dfa67f4be273e84ff1253d909",
+      "file": "book-232fda68bf632a53488bbeb29fd3c3d5d778af5dfa67f4be273e84ff1253d909.bin",
+      "html_sha256": "f9fb80bab4bdfa3dcc8757dce4bbdd7986638beb5f2d37b830d83ed6e9991062",
+      "iv": "hF0h8oC84YYqjty7",
+      "pages": [
+        193
+      ],
+      "volume": 7
     }
   ]
 }
