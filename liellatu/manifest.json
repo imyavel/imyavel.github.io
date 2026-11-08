@@ -445,7 +445,7 @@
     }
   ],
   "release_sha256": "e9b8379c20abee10452ffe4a69724579c08f36b81b159da9d8e44506e546b43e",
-  "updated_at": "2026-11-08T06:59:41+00:00",
+  "updated_at": "2026-11-08T10:00:05+00:00",
   "globals": {
     "file": "book-eb1a0c1baa3708cb348650541e6b955dd72c6308b7a0bc565eb8c84e8502f082.bin",
     "iv": "EufTTJljIagMZ3uy",
@@ -455,8 +455,8 @@
   },
   "gateway": {
     "format_version": 1,
-    "index": "gateway-6b4d4938d8ba3a47d773b6eb11e53c7263bd6a20a6101c4f474d38592c494641.html",
-    "index_sha256": "6b4d4938d8ba3a47d773b6eb11e53c7263bd6a20a6101c4f474d38592c494641",
+    "index": "gateway-05113c16acc34073a653db980a9eb7c2214ecc0ebd21ce0a1af1b936cea1d78c.html",
+    "index_sha256": "05113c16acc34073a653db980a9eb7c2214ecc0ebd21ce0a1af1b936cea1d78c",
     "script": "access-eabd192f3cc84ff43c8997d97a631011cc6f0528cbf18cee5b88ec1c4b37fc70.js",
     "script_sha256": "eabd192f3cc84ff43c8997d97a631011cc6f0528cbf18cee5b88ec1c4b37fc70"
   }
