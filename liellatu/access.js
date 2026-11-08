@@ -6,7 +6,7 @@ const hex=value=>[...new Uint8Array(value)].map(n=>n.toString(16).padStart(2,'0'
 const aadKey=id=>new TextEncoder().encode('liellatu:key:v1:'+id);
 const aadBook=new TextEncoder().encode('liellatu:book:v1');
 const isReader=document.body.hasAttribute('data-liellatu-reader');
-let manifestPromise,activeKey,blobURL;
+let manifestPromise,globalsPromise,activeKey,blobURL;
 function startingVolume(meta){
   try{return Math.max(0,meta.volumes.findIndex(v=>v.volume===Number(localStorage.getItem('liellatu-web-volume-v1'))));}catch{return 0;}
 }
@@ -30,7 +30,7 @@ async function metadata(){
   if(!manifestPromise)manifestPromise=fetch(new URL('manifest.json',base),{cache:'no-store'}).then(async response=>{
     if(!response.ok)throw new Error('Книга временно недоступна. Попробуйте ещё раз позже.');
     const value=await response.json();
-    if(value.format_version!==1||!value.volumes?.length||value.access?.kdf?.iterations<210000)throw new Error('Не удалось открыть выпуск книги.');
+    if(![1,2].includes(value.format_version)||!value.volumes?.length||value.access?.kdf?.iterations<210000)throw new Error('Не удалось открыть выпуск книги.');
     return value;
   }).catch(error=>{manifestPromise=null;throw error;});
   return manifestPromise;
@@ -45,15 +45,34 @@ async function unlock(username,password,meta){
   const key=await crypto.subtle.importKey('raw',raw,{name:'AES-GCM'},false,['decrypt']);
   new Uint8Array(raw).fill(0);return key;
 }
-async function bookHTML(key,volume){
+async function decryptPayload(key,volume,expected){
   if(!/^book-[0-9a-f]{64}\.bin$/.test(volume.file))throw new Error('Не удалось открыть выпуск книги.');
   const response=await fetch(new URL(volume.file,base),{cache:'no-cache'});
   if(!response.ok)throw new Error('Книга временно недоступна. Попробуйте ещё раз позже.');
   const cipher=await response.arrayBuffer();
   if(hex(await crypto.subtle.digest('SHA-256',cipher))!==volume.cipher_sha256)throw new Error('Не удалось загрузить книгу целиком. Попробуйте ещё раз.');
   const raw=await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes(volume.iv),additionalData:aadBook},key,cipher);
-  if(hex(await crypto.subtle.digest('SHA-256',raw))!==volume.html_sha256)throw new Error('Не удалось проверить выпуск книги.');
-  return decoder.decode(raw);
+  if(hex(await crypto.subtle.digest('SHA-256',raw))!==expected)throw new Error('Не удалось проверить выпуск книги.');
+  return raw;
+}
+async function bookHTML(key,volume){
+  const raw=await decryptPayload(key,volume,volume.html_sha256),meta=await metadata();
+  if(meta.format_version===1)return decoder.decode(raw);
+  if(!globalsPromise)globalsPromise=(async()=>{
+    const packed=await decryptPayload(key,meta.globals,meta.globals.sha256);
+    const stream=new Blob([packed]).stream().pipeThrough(new DecompressionStream('gzip'));
+    return JSON.parse(await new Response(stream).text());
+  })().catch(error=>{globalsPromise=null;throw error;});
+  const shared=await globalsPromise,refs=shared.volumes[String(volume.volume)];
+  if(shared.format_version!==1||refs.reviewed_html_sha256!==volume.reviewed_html_sha256)throw new Error('Не удалось проверить выпуск книги.');
+  let html=decoder.decode(raw);
+  html=html.replace(/(<script type="application\/json" id="catalog">)(.*?)(<\/script>\n)/,(_,prefix,local,suffix)=>{
+    const pages=local.slice('{"pages":'.length,-1);
+    return prefix+shared.parts[refs.catalog].replace('%%LIELLATU_VOLUME_PAGES%%',()=>pages)+suffix;
+  });
+  html=html.replace('<!--liellatu-global-terms-->\n',()=>shared.parts[refs.terms]);
+  if(hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(html)))!==volume.reviewed_html_sha256)throw new Error('Не удалось проверить выпуск книги.');
+  return html;
 }
 const dialog=document.createElement('dialog');dialog.className='access-dialog';dialog.id='liellatu-login';
 dialog.setAttribute('aria-labelledby','access-title');
