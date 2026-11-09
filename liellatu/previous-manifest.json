@@ -4,15 +4,15 @@
       "hash": "SHA-256",
       "iterations": 600000,
       "name": "PBKDF2",
-      "salt": "nnHnwnod2QwCx6dnqeEGYu2MwVc/N/XArVLYl9RXRWA="
+      "salt": "U74i0RhiU+O4D1xAyxAUxDMH3c5RrGOsfx6v/O0xw/E="
     },
     "key_id": "dab870863eaef2001fda1f1f6bd50f4f6a2bd1318c30bb1a92f83f5f6d0d8df8",
+    "revision": 1,
     "wrapped_key": {
-      "data": "wlMoadKFSnFfX383WR8Towd+zId9cRURa56hgbC79/EBhtNr3Nawg3bF3uRrZpeI",
-      "iv": "1bVFS3Zy3tmtJbVU"
+      "data": "tA2BSz7/+a4kRN4oipslD2pkobRTo/aL4a4AOfdOn/J3X7D2/Vb78JPNpiEN5DlY",
+      "iv": "fyTcXoR2iBPuRRVp"
     }
   },
-  "batch_release": "r20261109T152054-b89fa38e",
   "book_id": "liellatu-pasauleziura",
   "format_version": 3,
   "gateway": {
@@ -28,9 +28,8 @@
     "file": "book/globals.txt",
     "sha256": "e16098ebddc82899f860ab3031079f7d424142e49106dbac23db4236dbe680c2"
   },
-  "release_sha256": "9df6e5039615e9861e281d8162adbf7d02f4a66f204a1d1fa75f5e9fa51f3540",
-  "source_commit": "594707d31afed16130c8d04a8e81cd88aa05bf2e",
-  "updated_at": "2026-11-09T15:42:26.131+00:00",
+  "release_sha256": "93e341f5706d87c99675c59619691b280e426cc2e19fe4d7c114629dd3e0bbce",
+  "updated_at": "2026-11-09T16:05:28+00:00",
   "volumes": [
     {
       "bytes": 4550372,
