@@ -5,6 +5,8 @@ const bytes=value=>Uint8Array.from(atob(value),c=>c.charCodeAt(0));
 const hex=value=>[...new Uint8Array(value)].map(n=>n.toString(16).padStart(2,'0')).join('');
 const aadKey=id=>new TextEncoder().encode('liellatu:key:v1:'+id);
 const aadBook=new TextEncoder().encode('liellatu:book:v1');
+const aadChunk=new TextEncoder().encode('liellatu:chunk:v1');
+const gzipHeader=Uint8Array.of(0x1f,0x8b,8,0,0,0,0,0,0,0xff),finalBlock=Uint8Array.of(3,0);
 const isReader=document.body.hasAttribute('data-liellatu-reader');
 let manifestPromise,globalsPromise,activeKey,blobURL;
 function startingVolume(meta){
@@ -30,7 +32,7 @@ async function metadata(){
   if(!manifestPromise)manifestPromise=fetch(new URL('manifest.json',base),{cache:'no-store'}).then(async response=>{
     if(!response.ok)throw new Error('Книга временно недоступна. Попробуйте ещё раз позже.');
     const value=await response.json();
-    if(![1,2].includes(value.format_version)||!value.volumes?.length||value.access?.kdf?.iterations<210000)throw new Error('Не удалось открыть выпуск книги.');
+    if(![1,2,3].includes(value.format_version)||!value.volumes?.length||value.access?.kdf?.iterations<210000)throw new Error('Не удалось открыть выпуск книги.');
     return value;
   }).catch(error=>{manifestPromise=null;throw error;});
   return manifestPromise;
@@ -55,10 +57,33 @@ async function decryptPayload(key,volume,expected){
   if(hex(await crypto.subtle.digest('SHA-256',raw))!==expected)throw new Error('Не удалось проверить выпуск книги.');
   return raw;
 }
+// v3: one stable text file per volume; each line is a deterministic AES-GCM chunk.
+async function chunkPayload(key,part,expected){
+  if(!/^book\/(?:v\d{2,3}|globals)\.txt$/.test(part.file)||!/^[0-9a-f]{64}$/.test(part.cipher_sha256))throw new Error('Не удалось открыть выпуск книги.');
+  const response=await fetch(new URL(part.file+'?v='+part.cipher_sha256,base),{cache:'no-cache'});
+  if(!response.ok)throw new Error('Книга временно недоступна. Попробуйте ещё раз позже.');
+  const data=await response.arrayBuffer();
+  if(hex(await crypto.subtle.digest('SHA-256',data))!==part.cipher_sha256)throw new Error('Не удалось загрузить книгу целиком. Попробуйте ещё раз.');
+  const lines=decoder.decode(data).split('\n'),head=lines[0].split(' '),unique=lines.slice(2,-1);
+  if(head.length!==3||head[0]!=='liellatu-chunks-1'||lines.at(-1)!==''||!/^(\d+(-\d+)?(,\d+(-\d+)?)*)?$/.test(lines[1]??'x'))throw new Error('Не удалось открыть выпуск книги.');
+  const order=lines[1]?lines[1].split(',').flatMap(range=>{const [first,last=first]=range.split('-').map(Number);return Array.from({length:last-first+1},(_,i)=>first+i);}):[];
+  if(order.some(i=>i>=unique.length))throw new Error('Не удалось открыть выпуск книги.');
+  const fragments=await Promise.all(unique.map(async line=>{const text=atob(line),value=new Uint8Array(text.length);
+    for(let i=0;i<text.length;i++)value[i]=text.charCodeAt(i);
+    return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:value.subarray(0,12),additionalData:aadChunk},key,value.subarray(12)));}));
+  const trailer=new Uint8Array(8),view=new DataView(trailer.buffer);
+  view.setUint32(0,parseInt(head[2],16),true);view.setUint32(4,Number(head[1])%4294967296,true);
+  const stream=new Blob([gzipHeader,...order.map(i=>fragments[i]),finalBlock,trailer]).stream().pipeThrough(new DecompressionStream('gzip'));
+  const raw=await new Response(stream).arrayBuffer();
+  if(raw.byteLength!==Number(head[1])||hex(await crypto.subtle.digest('SHA-256',raw))!==expected)throw new Error('Не удалось проверить выпуск книги.');
+  return raw;
+}
 async function bookHTML(key,volume){
-  const raw=await decryptPayload(key,volume,volume.html_sha256),meta=await metadata();
-  if(meta.format_version===1)return decoder.decode(raw);
+  const meta=await metadata(),chunked=meta.format_version===3;
+  const raw=chunked?await chunkPayload(key,volume,volume.html_sha256):await decryptPayload(key,volume,volume.html_sha256);
+  if(meta.format_version===1||(chunked&&!meta.globals))return decoder.decode(raw);
   if(!globalsPromise)globalsPromise=(async()=>{
+    if(chunked)return JSON.parse(decoder.decode(await chunkPayload(key,meta.globals,meta.globals.sha256)));
     const packed=await decryptPayload(key,meta.globals,meta.globals.sha256);
     const stream=new Blob([packed]).stream().pipeThrough(new DecompressionStream('gzip'));
     return JSON.parse(await new Response(stream).text());
