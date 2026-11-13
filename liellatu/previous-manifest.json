@@ -13,7 +13,6 @@
       "iv": "fyTcXoR2iBPuRRVp"
     }
   },
-  "batch_release": "r8ca768ad42c146a1bb3e",
   "book_id": "liellatu-pasauleziura",
   "format_version": 3,
   "gateway": {
@@ -25,13 +24,12 @@
   },
   "globals": {
     "bytes": 5344293,
-    "cipher_sha256": "48ea398dc30b625e09dfe82ae9d9677e35a553fa64c6e07cbb9447475324e865",
+    "cipher_sha256": "354da30bed349deb2b1d75c18250d20add168a8f9cbd49d676a3161add0d17fc",
     "file": "book/globals.txt",
-    "sha256": "21bcd1447a66bfaa9af99d377a5145370aa6e57838bf04a89059e9a45f80782a"
+    "sha256": "bb3ba66cd9e5d806a61d6739d6846263ce63fb131b782eec79de0e7cc9652152"
   },
-  "release_sha256": "9d0cac47492c9dd355c72ea1c04ba94edc06568fb0927d3f32d6caa304616485",
-  "source_commit": "e1eab05e1a453aa85652cb3f571e272acfc9207b",
-  "updated_at": "2026-11-11T01:26:38.412+00:00",
+  "release_sha256": "6248cbfd67acf8d0d25a4c63b80e4170d0de70f57b7bff5b0a9aa7c5d6b1b7ae",
+  "updated_at": "2026-11-11T02:59:26+00:00",
   "volumes": [
     {
       "bytes": 4551061,
@@ -496,10 +494,10 @@
       "volume": 11
     },
     {
-      "bytes": 2336541,
-      "cipher_sha256": "80473bfc00db0a1432598c46e95aae4c7e9f79b6ab98da34f79ac1e3d27b803e",
+      "bytes": 2336525,
+      "cipher_sha256": "9e7c51094f443097926d702f64d3c89ecc0cc101e37f5d22b2db0e8c6021d06e",
       "file": "book/v12.txt",
-      "html_sha256": "e7407224a05f6e13fd6dcbbd0fc7e3fe37544013f404dbc50e3e8e87e62a59d3",
+      "html_sha256": "f836937c367084fd83c8f19baffe93c302a9e0de10e78fb5b6a7a0ee9beff16f",
       "pages": [
         353,
         354,
@@ -534,14 +532,14 @@
         383,
         384
       ],
-      "reviewed_html_sha256": "308f1e555419ffaf1f50991ac6d6bb839659c66252ec8f71c626c64c33fbac50",
+      "reviewed_html_sha256": "75ffd14bacc73db65792f3da34062b0e22526618a3343170d810eceb90f4d646",
       "volume": 12
     },
     {
-      "bytes": 2186734,
-      "cipher_sha256": "7654c3d79ee594c7e33c23a7c8979135644b8969d99adc736050d266c1ce897d",
+      "bytes": 2186754,
+      "cipher_sha256": "5ff400511b13d7afefba21afe2d450c2c350f189524b72ad1fccb2c34d6ad963",
       "file": "book/v13.txt",
-      "html_sha256": "c956434c57748ad76f005b1e26860002b3812b6b2be053c85bb07a30ea165683",
+      "html_sha256": "2ad49b83075f205f1b2e3aa15a178f48cfad1673ce0610cbf1cea18eebd64cb8",
       "pages": [
         385,
         386,
@@ -576,7 +574,7 @@
         415,
         416
       ],
-      "reviewed_html_sha256": "a83774f7fd20694a0a2ea7240643d5ea775d6148325857462fe5b4787701daa0",
+      "reviewed_html_sha256": "3b100b99401a655708a3f7bcb01c298f16270ee76826d96185a3c120239858e0",
       "volume": 13
     },
     {
