@@ -13,7 +13,6 @@
       "iv": "fyTcXoR2iBPuRRVp"
     }
   },
-  "batch_release": "rfc7273f8603a4beb8ad9",
   "book_id": "liellatu-pasauleziura",
   "format_version": 3,
   "gateway": {
@@ -25,19 +24,18 @@
   },
   "globals": {
     "bytes": 6556027,
-    "cipher_sha256": "528f0ede5a3adb1754198fcf09f0e311bc11f6ad3692b9805850bb9038d3f861",
+    "cipher_sha256": "374b16df09353cc48c0add8ee257ca24ee042800eeed14bde643684bd157a308",
     "file": "book/globals.txt",
-    "sha256": "81a08b0a25ca3247aef01fe6dd7a972489269b04375c7211cb9d99f148f0f934"
+    "sha256": "4cfe8ec039cacf9b94d37fe4e293c619820846d9b4fc78c205a8237c0434b94d"
   },
-  "release_sha256": "ffd6d4435de4bb80a5babc94d1bcd4ec2141368f45dce8d42813c74905d482c5",
-  "source_commit": "54cd33611402493793221a59b9797b143c7b1692",
-  "updated_at": "2026-11-15T19:52:51.855+00:00",
+  "release_sha256": "ba01f711b7e6200661db2d31abbab71820d03862e809b0f10458be6be7d8e827",
+  "updated_at": "2026-11-15T21:59:51+00:00",
   "volumes": [
     {
-      "bytes": 4551061,
-      "cipher_sha256": "e9b53f4aec620d8ee039311c49dc82cb91fc26f1a7317da7f735e0187a4a27f4",
+      "bytes": 4551067,
+      "cipher_sha256": "87b987b5118c8d82d365797a498f74e8ff02ff6356e38b8cfa5f383c4d8d1c4d",
       "file": "book/v01.txt",
-      "html_sha256": "a3a1e7f34ed4ba61bc2c5116b118c27c244c48f88d609bc8051ea5f66cf74563",
+      "html_sha256": "2268380af3f4b4fd8cf0cc09609a176896ae2abf7dda5d769b984c7c83946c70",
       "pages": [
         1,
         2,
@@ -72,14 +70,14 @@
         31,
         32
       ],
-      "reviewed_html_sha256": "295f6e8f36b181f43309ae64857ee392f9d5cc3c95b8e672bd0172f97a427e13",
+      "reviewed_html_sha256": "548a70e2fd2a8a3ef88062b828982cbfeed7b6edb0337beb4768c33b74cd176b",
       "volume": 1
     },
     {
-      "bytes": 5772530,
-      "cipher_sha256": "fac444b61d9870acafff97de04ef204993cf68b7a6807dfe6273094781441c6f",
+      "bytes": 5772532,
+      "cipher_sha256": "134cbaa36245c3ad183917558f6237c3c7fd08aae964f4ddd40058fcf7d2502a",
       "file": "book/v02.txt",
-      "html_sha256": "7b1cde2bdb8d0374985654b8c6176c57e1828259345f19814611a5c296d1ebc4",
+      "html_sha256": "36c434ed7dd4691835871d38a805418a65fc28622abe69c488097f1210558027",
       "pages": [
         33,
         34,
@@ -114,7 +112,7 @@
         63,
         64
       ],
-      "reviewed_html_sha256": "3ed0b0942855186773caaee642c80e3b1470546861f188e5c9755ae0f84528b6",
+      "reviewed_html_sha256": "6d6c10c9ba0a2bbc509eeeb0e9d1614f5adfc5821c56ff163b920df9017aeec4",
       "volume": 2
     },
     {
@@ -622,10 +620,10 @@
       "volume": 14
     },
     {
-      "bytes": 5982613,
-      "cipher_sha256": "6f90fbf53548013d65827283d0dfdc3fd642df8a5f70a48113a1bb12d75c3c02",
+      "bytes": 5983941,
+      "cipher_sha256": "647cfb965acc3f52ba8d49cb04721a7969eaa6ea75804265a8c272bd3859611e",
       "file": "book/v15.txt",
-      "html_sha256": "099c90f72f9c2a82cbafe5d1e8a2c6d7e4db53f1cbd668baa3cf1ff21c6f54c9",
+      "html_sha256": "84ace2e3e0e027447fd99db36c4d74e83d648b35fed4692327ffe9cfbcb88ee5",
       "pages": [
         449,
         450,
@@ -660,14 +658,14 @@
         479,
         480
       ],
-      "reviewed_html_sha256": "efffc081dbca933a10bdb278f9d3c3ed70726cd95f3af004d96669dd9fd6f38d",
+      "reviewed_html_sha256": "5564ab0f55921389a00bcd05ad40cd367d666fe016678d64b8fc55966c394e5a",
       "volume": 15
     },
     {
-      "bytes": 2988235,
-      "cipher_sha256": "b695826efc865be6c1911d33bdf771922f833136438eb5eece051291503e8503",
+      "bytes": 2987899,
+      "cipher_sha256": "aac7d220a4c5e51d2109dc3ae81bcb8859181b193cca19201693acb90862e45d",
       "file": "book/v16.txt",
-      "html_sha256": "f88c3151414ffbfcf36243d59f0918ff3541451a4002eddd0d506ead93482510",
+      "html_sha256": "cdfef476826992dc87b204dbeb6692ee9e5dbfcd79e8b5c2fff4dbdd81492d33",
       "pages": [
         481,
         482,
@@ -702,7 +700,7 @@
         511,
         512
       ],
-      "reviewed_html_sha256": "2c1c7d47d70d81726eeee9824a105422a4884f10609341c9b1206386e0ceb26b",
+      "reviewed_html_sha256": "8f09200283a601c6b93fdee8b2ad6427c2bd74cd41e14e7f92f3a4066d3b149c",
       "volume": 16
     },
     {
