@@ -13,7 +13,7 @@
       "iv": "fyTcXoR2iBPuRRVp"
     }
   },
-  "batch_release": "r20261124T183057-c53255b2",
+  "batch_release": "r20261124T203405-f1cdf0bb",
   "book_id": "liellatu-pasauleziura",
   "format_version": 3,
   "gateway": {
@@ -24,14 +24,14 @@
     "script_sha256": "c3c4cca78087adcaf8aee016497d4e4b73dedf07c3100be7d5796b0259228e24"
   },
   "globals": {
-    "bytes": 10012626,
-    "cipher_sha256": "24a39cb46900dee8bd6dd671009b7c5c4bf03d6cdbd11066f8e37b2a6efb717f",
+    "bytes": 10455841,
+    "cipher_sha256": "cef97d27fdd03efa75cb57fce44a3611196f5983d6440f4933a0859de42bbe58",
     "file": "book/globals.txt",
-    "sha256": "843a523f192ed03c2ff43b924da95df5140bbfdada2fad6ce82275aa5101623e"
+    "sha256": "ccd40fe4e7a108a6132144d5a4396171eea89d71666c6cc733a525efbf36e963"
   },
-  "release_sha256": "1e9c17f52f92a6375106de6843c23cc381c85dcad62803986e8edddd6ce41ea5",
-  "source_commit": "3516de654639cabbb70c63851e66f65a3b105d71",
-  "updated_at": "2026-11-24T19:11:49.047+00:00",
+  "release_sha256": "5f688ee2e3495189dcd0f7a42c39239c29a6852301c2e7a33502520732945e7b",
+  "source_commit": "1677ba91f7cf413875a529eb53676f18618d0490",
+  "updated_at": "2026-11-24T21:15:10.226+00:00",
   "volumes": [
     {
       "bytes": 4551067,
@@ -72,7 +72,7 @@
         31,
         32
       ],
-      "reviewed_html_sha256": "b055e1a3e8cf2cc2e456649ae589feb93e718b78ced29b00ce79e48a40778b03",
+      "reviewed_html_sha256": "9ee476773484258e9c8e2517d71b484da74a79d3a7b08c8440981816900052d0",
       "volume": 1
     },
     {
@@ -114,7 +114,7 @@
         63,
         64
       ],
-      "reviewed_html_sha256": "9e53ab7c1e7a5a9119cbd4edf093751b1efadea7133bc4f34cb97d6b328d1e6e",
+      "reviewed_html_sha256": "e80498cc5c0dd3f67d65d8f6a07a472a8e00a13b87516eeaeac0200adbedc25f",
       "volume": 2
     },
     {
@@ -156,7 +156,7 @@
         95,
         96
       ],
-      "reviewed_html_sha256": "b6dc507b387866e00676666f13952a0fa0970a535cfe4109968f4247a634188c",
+      "reviewed_html_sha256": "8623c7e803c93211d7a72e55a7b7f7d2217a9c7b270c98a5b40b1b6c6dbfa339",
       "volume": 3
     },
     {
@@ -198,7 +198,7 @@
         127,
         128
       ],
-      "reviewed_html_sha256": "e8b307f6162d3e5c17798bfc7e68989d2203fa994e40b8fbc1914d9a5a58692b",
+      "reviewed_html_sha256": "2e31d83cfe2331321797f4a934e55a13d59b0f783b0aed501d86aeb4d83717cf",
       "volume": 4
     },
     {
@@ -240,7 +240,7 @@
         159,
         160
       ],
-      "reviewed_html_sha256": "57e42eea22215221386728e901a87363a9cfc09e53735448e82743cd48feea6d",
+      "reviewed_html_sha256": "d104482b0105e87ca239d135372957f2fc06233b4ba692b22e58536842afbde2",
       "volume": 5
     },
     {
@@ -282,7 +282,7 @@
         191,
         192
       ],
-      "reviewed_html_sha256": "392795870a8f17bcc4f1d6b2de5ee9ac0ed7c5038d2e49b5e6d148050947773c",
+      "reviewed_html_sha256": "dc92f5f948be23c67f7a2a9877deaec8817c2397ec881414a13fcc0a918f889b",
       "volume": 6
     },
     {
@@ -324,7 +324,7 @@
         223,
         224
       ],
-      "reviewed_html_sha256": "3a6b407db997ac630511e1738c6e4c94e43ff5fa4b852ad4dbe2f3ee5b8308f2",
+      "reviewed_html_sha256": "2496a52387636169c459549f6d7f43406e0da5073aeb1a6beada589f438d9189",
       "volume": 7
     },
     {
@@ -366,7 +366,7 @@
         255,
         256
       ],
-      "reviewed_html_sha256": "5fdeffc94768d7e56c77c68eea6012d253facdec9ed3c8c5b38a035615477be8",
+      "reviewed_html_sha256": "82ce6993e74f071b2ade89a77e44ee810a78592efe39f15a0e65b6b857593577",
       "volume": 8
     },
     {
@@ -408,7 +408,7 @@
         287,
         288
       ],
-      "reviewed_html_sha256": "4cbed20aaafab6b2e62e1465773eb6611b63e39f7316e0031c6fbdd51508119b",
+      "reviewed_html_sha256": "a3cc39c79be7ee7a815be3ff1b05c48884842ad7b2423c8dbd987392bd593a0c",
       "volume": 9
     },
     {
@@ -450,7 +450,7 @@
         319,
         320
       ],
-      "reviewed_html_sha256": "44bdf738fd28083386b781470e28d1d06d2522efe86d1388cfd3412a8e4849a6",
+      "reviewed_html_sha256": "400f0aae236c98fb35c0040f4a4f88d811d150f720081afe148f5db08f69a79a",
       "volume": 10
     },
     {
@@ -492,7 +492,7 @@
         351,
         352
       ],
-      "reviewed_html_sha256": "07149ab3b661dde9e78c1a1abc4f0794218cf1d1e80c75831abfd2e63007574f",
+      "reviewed_html_sha256": "f1c56e5b5d9346bef5431dd400025a4a445af8a214241027032492d654267102",
       "volume": 11
     },
     {
@@ -534,7 +534,7 @@
         383,
         384
       ],
-      "reviewed_html_sha256": "2354b629a5397f990b0142247867bb44b17c4af8a85db83a84faa015052ff61a",
+      "reviewed_html_sha256": "5c203ca97dc7cc5d507a4dba471a86bdaef5ad90c8dfeffe4c35d16060f7aa19",
       "volume": 12
     },
     {
@@ -576,7 +576,7 @@
         415,
         416
       ],
-      "reviewed_html_sha256": "c206cb330830ead4e68c6524b5f4db0bd101d09f13ff4de8e6047fd3397ac78c",
+      "reviewed_html_sha256": "5871e5054989d6621da80516dd5a4066a01f67f7e767ad99f54c66aac73883a7",
       "volume": 13
     },
     {
@@ -618,7 +618,7 @@
         447,
         448
       ],
-      "reviewed_html_sha256": "b1ba2a7a82d805e677deec227abb5073377b2150be019522bfaf0aef1a3b7dfe",
+      "reviewed_html_sha256": "b0533ecf1e67dbb40bbd81faeefc5ad6b928baa5288b0fa9da022be13f964bd6",
       "volume": 14
     },
     {
@@ -660,7 +660,7 @@
         479,
         480
       ],
-      "reviewed_html_sha256": "c9d2109d1aa2d9537bcaefb024c74af0a82a4f000ace249fff9838adaca46c89",
+      "reviewed_html_sha256": "8da2d8803b687dd6814b6aa004e84e6cc80ba7d8e1bd29a2cc25eedcfba0bc10",
       "volume": 15
     },
     {
@@ -702,7 +702,7 @@
         511,
         512
       ],
-      "reviewed_html_sha256": "08ba42b766b2f1512e7a073af9a3804deed09e944b90846db27b511c9840e37b",
+      "reviewed_html_sha256": "51f71f1f5992122053346eccddc6bb307709d49440459cd67467a2ef7b431346",
       "volume": 16
     },
     {
@@ -744,7 +744,7 @@
         543,
         544
       ],
-      "reviewed_html_sha256": "c51c632b754c92780cd06e4ab8c307f2e5221d1b896b5c2ded81ae9d69dc2cdd",
+      "reviewed_html_sha256": "bda743777e75310fc9012c0049ff5e753a7cc55fd9b687c91ad3575cf945c641",
       "volume": 17
     },
     {
@@ -786,7 +786,7 @@
         575,
         576
       ],
-      "reviewed_html_sha256": "140166625713dacfce40c8e4bd92b7c70e75811c638093a06020405c36073fdb",
+      "reviewed_html_sha256": "11f4a59e96bb1994db40f847fc2d8458d0d7b4da87dc9135e5a15c30e0e3ff05",
       "volume": 18
     },
     {
@@ -828,7 +828,7 @@
         607,
         608
       ],
-      "reviewed_html_sha256": "8189db408fb04b70e60c7c74f873efbd61979ea63a3f36696357ddf0a488af3e",
+      "reviewed_html_sha256": "a125a4f128d730b260ce26f7e2ab8a78fcc98df3c25ea05c3edf58491d8a3302",
       "volume": 19
     },
     {
@@ -870,7 +870,7 @@
         639,
         640
       ],
-      "reviewed_html_sha256": "f8ff2e5a08868022ba0b1e010cf4eed79a3d76625c7f08b87e345f87b9226db3",
+      "reviewed_html_sha256": "7bca741e76bbc94c5b9af68282c61395d0c022271a52124e6e4a9beda96ee21f",
       "volume": 20
     },
     {
@@ -912,14 +912,14 @@
         671,
         672
       ],
-      "reviewed_html_sha256": "0bdbf742a099682ef9c51b4bb6e295ffbcafcc21f3a3425cee92b262b0c4af8d",
+      "reviewed_html_sha256": "1ef9dbdc4e7849624aa6b60e9af97ffb2df07010db50d020540cb4b17b3c71fa",
       "volume": 21
     },
     {
-      "bytes": 2929615,
-      "cipher_sha256": "af12309bd411e428e893c050be030e0b48d8392e09303bd052c90ecd525feee2",
+      "bytes": 2967874,
+      "cipher_sha256": "2359305306562860957d665a5cb47a12f147e7f8c89af63c7fb9de7d248e5e1e",
       "file": "book/v22.txt",
-      "html_sha256": "dbdceefabe6ea86e7bbad0c01cef7f1f20bac8a2d5ce7cba31b0181e258686dd",
+      "html_sha256": "9fc7c813c36f1728d347cb0f2562c8d6d15613985942653459e431b909e4e780",
       "pages": [
         673,
         674,
@@ -951,10 +951,25 @@
         700,
         701,
         702,
-        703
+        703,
+        704
       ],
-      "reviewed_html_sha256": "899062ba499544b2854d8ce1ab2a52c74be2293601a67e5e03a2f78da4468c48",
+      "reviewed_html_sha256": "6f00fb1c8dad1d37c3a80f7d7026e106675a64ff2c391cbf13d082ad041fa517",
       "volume": 22
+    },
+    {
+      "bytes": 1618670,
+      "cipher_sha256": "f1c97b3a1af67b6fc55c37edcdae746cf8779e32f9bd049aa81a0d6caf0f4703",
+      "file": "book/v23.txt",
+      "html_sha256": "b73be81553bb6972b4a809cc88b9870f94514363cacf59d9bafd374fc3574d66",
+      "pages": [
+        705,
+        706,
+        707,
+        708
+      ],
+      "reviewed_html_sha256": "bf7ea4236fc24238dcb1d31c1247c62fb852020fb892014bb865d58042fad6fa",
+      "volume": 23
     }
   ]
 }
