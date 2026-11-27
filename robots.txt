@@ -3,3 +3,4 @@ Allow: /
 Sitemap: https://imyavel.github.io/sitemap.xml
 Sitemap: https://imyavel.github.io/yaniktoim/sitemap.xml
 Sitemap: https://imyavel.github.io/zohar-sulam/sitemap.xml
+Sitemap: https://imyavel.github.io/savitri/sitemap.xml
